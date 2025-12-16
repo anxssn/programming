@@ -1,17 +1,12 @@
-# Лабораторная работа №9
+# *Лабораторная работа № 9*
 
-## Оценка 3
+## На оценку 3:
 
-1. git status (проверяем текущее состояние репозитория)
-![alt text](screenshots/photo1.png)
+1. **Используем git status, чтобы узнать на какой ветке мы находимся:**
 
-2. git log (смотрим историю коммитов)
-![alt text](screenshots/photo2.png)
+```bash
+arrzz@Admin:/mnt/d/vs code/code/c/lab9_git$ git status
+On branch main
+nothing to commit, working tree clean
+```
 
-3. Создан файл sort.c с функцией
-![alt text](screenshots/photo3.png)
-
-4. git status после создания sort.c (файл отображается как неотслеживаемый)
-![alt text](screenshots/photo4.png)
-
-5. 
