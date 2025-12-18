@@ -1065,3 +1065,161 @@ To github.com:anxssn/programming.git
 19. **Отчет отправлен**
 
 ## На оценку 5:
+1. **Создаем ветку branch1, переключаемся на нее:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git checkout -b branch1
+
+Switched to a new branch 'branch1'
+```
+
+2. **Выполняем команду echo "This is a relevant fact" > file.txt:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ echo "This is a relevant fact" > file.txt
+```
+
+3. **Коммитим это:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "файл и новая ветка"
+
+[branch1 36674f8] файл и новая ветка
+ 1 file changed, 1 insertion(+)
+ create mode 100644 laba9_git/file.txt
+```
+
+4. **Переключаемся на главную ветку и выполняем команду
+echo "This is an indispensable truth!" > file.txt:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git switch main
+
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+```
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ echo "This is an indispensable truth!" > file.txt
+```
+
+5. **Коммитим изменения:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add file.txt
+
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "файл в main"
+
+[main 70b1430] файл в main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 laba9_git/file.txt
+```
++ Теперь обе ветки имеют разные версии одного и того же файла — Git не может автоматически решить, какую оставить.
+
+6. **Вывод *git log --oneline --graph –all:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git log --oneline --graph --all
+* 70b1430 (HEAD -> main) файл в main
+* 36674f8 (branch1) файл и новая ветка
+|/
+* 5134bfd (origin/main) update
+* 4066dd5 gifka
+* f94a567 На оценку 3
+* 2c1c43e пробный
+* f5b5952 gif
+* b070831 Обновлен README.md
+* f7c7694 Скриншоты
+* 1e93a42 Merge branch 'mybranch' into master
+|\
+| * 8d464ff (origin/mybranch, mybranch) Добавлен массив
+| * bbaefd2 удаление
+| * f406cb3 Перенос файлов
+| * a6e0a8c Добавлен файл с командами
+| * 732740d Добавлен файл со своим именем
+| * a9a3a41 Отредактировали файл
+```
++ Видим, что две ветки разошлись
+
+7. **Используем команду *git merge* чтобы смержить ветку branch1 в master:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git merge branch1
+
+Auto-merging laba9_git/file.txt
+CONFLICT (add/add): Merge conflict in laba9_git/file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
++ Получаем конфликт
+
+8. **Проверяем *git status:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both added:      file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+9. **Смотрим содержимое файла file.txt и в текстовом
+редакторе исправляем конфликт:**
+
+10. **Вывод *git log --oneline --graph –all:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git log --oneline --graph --all
+* e5f0dd2 (HEAD -> main) конфликт
+* 36674f8 (branch1) файл и новая ветка
+|\
+| * 70b1430 файл в main
+|/
+* 5134bfd (origin/main) update
+* 4066dd5 gifka
+* f94a567 На оценку 3
+* 2c1c43e пробный
+* f5b5952 gif
+* b070831 Обновлен README.md
+* f7c7694 Скриншоты
+* 1e93a42 Merge branch 'mybranch' into master
+|\
+| * 8d464ff (origin/mybranch, mybranch) Добавлен массив
+| * bbaefd2 удаление
+| * f406cb3 Перенос файлов
+| * a6e0a8c Добавлен файл с командами
+| * 732740d Добавлен файл со своим именем
+| * a9a3a41 Отредактировали файл
+| * 339d938 Add content to greeting.txt
+| * 5179373 Add file greeting.txt
+| * 335c290 перенос
+| * 6ef90a8 добавлен file2.txt
+|/
+* 568aadd lab9 -> laba9
+```
+
+11. **Запушим изменения:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git push origin main
+Enter passphrase for key '/home/arrzz/.ssh/id_ed25519':
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (12/12), 1.17 KiB | 31.00 KiB/s, done.
+Total 12 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), completed with 1 local object.
+To github.com:anxssn/programming.git
+   5134bfd..e5f0dd2  main -> main
+```
+
