@@ -397,6 +397,7 @@ arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "Добавлен fil
 arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git switch mybranch
 
 Switched to branch 'mybranch'
+Your branch is up to date with 'origin/mybranch'.
 ```
 
 14. **Проверяем, что наш file2.txt пропал**
@@ -455,7 +456,7 @@ To github.com:anxsnn/programming.git
 branch 'mybranch' set up to track 'origin/mybranch'.
 ```
 
-17. **Проверка наличия двух веток на GitHub, пуш ветки master**
+17. **Проверка наличия двух веток на GitHub, пуш ветки master:**
 
 ```
 arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git push origin main
@@ -472,3 +473,595 @@ To github.com:anxsnn/programming.git
 
 
 ## На оценку 4:
+1. **Переключаемся на ветку mybranch:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git switch mybranch
+
+Switched to branch 'mybranch'
+Your branch is up to date with 'origin/mybranch'.
+```
+
+2. **В файл sort.c добавляем функцию main(), в которой
+будет объявлен массив из нескольких чисел и
+вызвана функция сортировки для этого массива:**
+
+```c
+// sort.c 
+#include <stdio.h>
+
+void bubble_sort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++)
+        for (int j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+}
+
+int main() {
+    int a[] = {4, 2, 0};
+    int n = sizeof(a) / sizeof(a[0]);
+    bubble_sort(a, n);
+    printf("Sorted array: ");
+    for (int i = 0; i < n; i++) {
+       printf("%d ", a[i]);
+    }
+     printf("\n");
+     return 0;
+}
+```
+3. ***git diff* - анализ изменений:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff
+
+diff --git a/laba9_git/sort.c b/laba9_git/sort.c
+index 1f43862..2d4fa2f 100644
+--- a/laba9_git/sort.c
++++ b/laba9_git/sort.c
+@@ -1,11 +1,27 @@
+ // sort.c
++#include <stdio.h>
++
+ void bubbleSort(int arr[], int n) {
+-    for (int i = 0; i < n - 1; i++) {
+-        for (int j = 0; j < n - i - 1; j++) {
+-            if (arr[j] > arr[j + 1]) {
++    for (int i = 0; i < n-1; i++)
++        for (int j = 0; j < n-i-1; j++)
++            if (arr[j] > arr[j+1]) {
+                 int temp = arr[j];
+                 arr[j] = arr[j+1];
+                 arr[j+1] = temp;
+             }
+         }
+     }
++}
++
++int main() {
++    int a[] = {4, 2, 0};
++    int n = sizeof(a)/sizeof(a[0]);
++
++    bubbleSort(a, n);
++
++    printf("Sorted array: ");
++    for (int i = 0; i < n; i++) {
++        printf("%d ", a[i]);
++    }
++    printf("\n");
++
++    return 0;
++
+}
+```
+4. ***git diff --staged* - проверка индексированных изменений:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff --staged
+```
+
+5. **Добавляем в область staged файл sort.c**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add sort.c
+```
+
+6. ***git diff* после индексации:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff
+```
+7. ***git diff --staged* после индексации:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff --staged
+
+diff --git a/laba9_git/sort.c b/laba9_git/sort.c
+index 1f43862..2d4fa2f 100644
+--- a/laba9_git/sort.c
++++ b/laba9_git/sort.c
+@@ -1,11 +1,27 @@
+ // sort.c
++#include <stdio.h>
++
+ void bubbleSort(int arr[], int n) {
+-    for (int i = 0; i < n - 1; i++) {
+-        for (int j = 0; j < n - i - 1; j++) {
+-            if (arr[j] > arr[j + 1]) {
++    for (int i = 0; i < n-1; i++)
++        for (int j = 0; j < n-i-1; j++)
++            if (arr[j] > arr[j+1]) {
+                 int temp = arr[j];
+                 arr[j] = arr[j+1];
+                 arr[j+1] = temp;
+             }
+         }
+     }
++}
++
++int main() {
++    int a[] = {4, 2, 0};
++    int n = sizeof(a)/sizeof(a[0]);
++
++    bubbleSort(a, n);
++
++    printf("Sorted array: ");
++    for (int i = 0; i < n; i++) {
++        printf("%d ", a[i]);
++    }
++    printf("\n");
++
++    return 0;
++
+}
+```
+8. **Удаляем число в массиве в sort.c**
+
+9. ***git diff* после удаления:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff 
+
+diff --git a/laba9_git/sort.c b/laba9_git/sort.c
+index 2d4fa2f..0448801 100644
+--- a/laba9_git/sort.c
++++ b/laba9_git/sort.c
+@@ -12,7 +12,7 @@ void bubblesort(int arr[], int n) {
+}
+
+int main() {
+    int a[] = {4, 2, 0};
+    int a[] = {4, 0};
+    int n = sizeof(a)/sizeof(a[0]);
+
+    bubblesort(a, n);
+```
+
+10. ***git diff --staged* после удаления**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff --staged
+
+diff --git a/laba9_git/sort.c b/laba9_git/sort.c
+index 1f43862..2d4fa2f 100644
+--- a/laba9_git/sort.c
++++ b/laba9_git/sort.c
+@@ -1,11 +1,27 @@
++/ / sort.c
+#include <stdio.h>
++
+void bubbleSort(int arr[], int n) {
+-    for (int i = 0; i < n - 1; i++) {
+-        for (int j = 0; j < n - i - 1; j++) {
+-             if (arr[j] > arr[j + 1]) {
++    for (int i = 0; i < n-1; i++)
++        for (int j = 0; j < n-i-1; j++)
++            if (arr[j] > arr[j+1]) {
+                 int temp = arr[j];
+-                 arr[j] = arr[j + 1];
+-                 arr[j + 1] = temp;
++                 arr[j] = arr[j+1];
++                 arr[j+1] = temp;
+              }
+          }
+}
++
++int main() {
++    int a[] = {4, 2, 0};
++    int n = sizeof(a)/sizeof(a[0]);
++
++    bubblesort(a, n);
++
++    printf("Sorted array: ");
++    for (int i = 0; i < n; i++)
++    printf("%d ", a[i]);
++
++    printf("\n");
++
++    return 0;
+ }  
+```
+
+11. **Объяснение ситуации: В индексе находятся изменения с добавлением main() функции В рабочей директории есть дополнительное изменение (удаление числа 8) Git показывает разные diff для staged и unstaged изменений**
+
+12. ***git status* - файл sort.c присутствует дважды в выводе:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch mybranch
+Your branch is up to date with 'origin/mybranch'.
+
+Changes to be committed:
+(use "git restore --staged <file>..." to unstage)
+    modified:    sort.c
+
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+    modified:    sort.c
+```
+
+13. ***git restore --staged* sort.c - отмена индексации:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git restore --staged sort.c
+```
+
+14. **Проверка *git status* после отмены:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch mybranch
+Your branch is up to date with 'origin/mybranch'.
+
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+    modified: sort.c
+```
+
+15. **Индексация и коммит изменений:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add sort.c
+
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "Добавлен массив"
+[mybranch ba8543a] Добавлен массив
+
+1 file changed, 22 insertions(+), 6 deletions(-)
+```
+
+16. **Просматриваем журнал (*git log*)**
+
+17. **Добавляем в sort.c в main() printf(“hello git\n”);**
+
+18. **Содержимое sort.c:**
+
+```c
+// sort.c 
+#include <stdio.h>
+
+void bubble_sort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++)
+        for (int j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+}
+
+int main() {
+    int a[] = {4, 0};
+    int n = sizeof(a) / sizeof(a[0]);
+    bubble_sort(a, n);
+    printf(“hello git\n”);
+    for (int i = 0; i < n; i++) {
+       printf("%d ", a[i]);
+    }
+     printf("\n");
+     return 0;
+}
+```
+19. ***git status* после добавления *printf:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch mybranch
+Your branch is ahead of 'origin/mybranch' by 1 commit.
+(use "git push" to publish your local commits)
+
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+    modified:    sort.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+20. ***git restore sort.c* - отмена изменений:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git restore sort.c
+```
+
+21. **Проверка содержимого sort.c:**
+
+```c
+// sort.c 
+#include <stdio.h>
+
+void bubble_sort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++)
+        for (int j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+}
+
+int main() {
+    int a[] = {4, 0};
+    int n = sizeof(a) / sizeof(a[0]);
+    bubble_sort(a, n);
+    printf(“hello git\n”);
+    for (int i = 0; i < n; i++) {
+       printf("%d ", a[i]);
+    }
+     printf("\n");
+     return 0;
+}
+```
+22. **Проверка *git status:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch mybranch
+Your branch is ahead of 'origin/mybranch' by 1 commit.
+    (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
+23. ***git push* - отправка ветки на удаленный репозиторий:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git push origin mybranch
+
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 667 bytes | 22.00 KiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:Erzaaa35/Programming-.git
+    1254c29..ba8543a mybranch -> mybranch
+```
+
+## Работа с ветками и ff-merge:
+
+1. **Создаем файл greeting.txt, индексируем его и коммитим с
+сообщением “Add file greeting.txt”:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ touch greeting.txt
+```
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add greeting.txt
+```
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "Add file greeting.txt"
+
+[main 5179373] Add file greeting.txt
+   1 file changed, 0 insertions(+), 0 deletions(-)
+   create mode 100644 laba9 git/greeting.txt
+```
+2. **Добавление слова "hello", индексация и коммит:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ echo “hello” > greeting.txt
+```
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add greeting.txt
+```
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "Add content to greeting.txt”
+
+[mybranch e2@55cf] Add content to greeting.txt
+1 file changed, 1 insertion(+)
+```
+3. **Создание ветки feature/uppercase:**
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git checkout -b feature/uppercase
+
+Switched to a new branch 'feature/uppercase'
+```
+4. **Проверяем на какой мы ветке:**
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git branch
+
+*feature/uppercase
+main
+mybranch
+```
+
+5. **Проверка *git status:***
+
+```
+arrzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git status
+
+On branch feature/uppercase
+
+nothing to commit, working tree clean
+```
+
+6. **Редактирование greeting.txt в верхний регистр ("HELLO"):**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ echo "HELLO" > greeting.txt
+```
+
+7. **Добавляем файл greeting.txt и коммитим:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git add greeting.txt
+
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git commit -m "Отредактировали файл"
+
+[feature/uppercase a9a3a41] Отредактировали файл
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+8. **Вывод *git branch:***
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git branch
+
+* feature/uppercase
+  main
+  mybranch
+```
+9. **Вывод *git log --oneline --graph –all:***
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git log --oneline --graph --all
+
+* a9a3a41 (HEAD -> feature/uppercase) Отредактировали файл
+* 339d938 (main) Add content to greeting.txt
+* 5179373 Add file greeting.txt
+* 335c290 (origin/main) перенос
+* 6ef90a8 Добавлен file2.txt
+*   8d464ff (origin/mybranch, mybranch) Добавлен массив
+*   bbaefd2 удаление
+*   f406cb3 Перенос файлов
+*   a6e0a8c Добавлен файл с командами
+*   732740d Добавлен файл со своим именем
+|/
+* 568aadd lab9 -> lab9
+```
+
+10. **Переключаемся на главную ветку:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git switch main
+
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+```
+
+11. ***cat* - проверка содержимого greeting.txt:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ cat greeting.txt
+
+hello
+```
+12. **Сравнение веток:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git diff main feature/uppercase
+
+diff --git a/laba9_git/greeting.txt b/laba9_git/greeting.txt
+index ce01362..e427984 100644
+--- a/laba9_git/greeting.txt
++++ b/laba9_git/greeting.txt
+@@ -1 +1 @@
+-hello
++HELLO
+```
+
+13. **Объединяем ветки:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git merge feature/uppercase
+
+Updating 339d938..a9a3a41
+Fast-forward
+ laba9_git/greeting.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+14. **cat - проверка содержимого после слияния:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ cat greeting.txt
+
+HELLO
+```
+
+15. **Удаление ветки feature/uppercase:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git branch -d feature/uppercase
+
+Deleted branch feature/uppercase (was a9a3a41).
+```
+
+16. **Слияние ветки mybranch в master:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git merge mybranch
+
+Merge made by the 'ort' strategy.
+ laba9_git/README.md     | 18 +++++++++++++++---
+ laba9_git/commands.txt  | 42 ++++++++++++++++++++++++++++++++++++++++++
+ laba9_git/file1.txt     |  1 +
+ laba9_git/sort.c        | 25 +++++++++++++++++--------
+ 4 files changed, 77 insertions(+), 9 deletions(-)
+ create mode 100644 laba9_git/commands.txt
+ create mode 100644 laba9_git/file1.txt
+```
+
+17. ***git log --oneline --graph --all* - анализ истории:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git log --oneline --graph --all
+
+*   1e93a42 (HEAD -> main) Merge branch 'mybranch' into master
+|\
+| * 8d464ff (origin/mybranch, mybranch) Добавлен массив
+| * bbaefd2 удаление
+| * f406cb3 Перенос файлов
+| * a6e0a8c Добавлен файл с командами
+| * 732740d Добавлен файл со своим именем
+* | a9a3a41 Отредактировали файл
+* | 339d938 Add content to greeting.txt
+* | 5179373 Add file greeting.txt
+* | 335c290 (origin/main) перенос
+* | 6ef90a8 Добавлен file2.txt
+|/
+```
+
+18. ***git push* - отправка изменений на удаленный репозиторий:**
+
+```
+arzzz@Admin:/mnt/d/vs code/code/c/laba9_git$ git push origin main
+
+Enter passphrase for key '/home/arzzz/.ssh/id_ed25519':
+Enumerating objects: 18, done.
+Counting objects: 100% (18/18), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (14/14), 1.46 KiB | 14.00 KiB/s, done.
+Total 14 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), done.
+To github.com:anxssn/programming.git
+   335c290..1e93a42  main -> main
+```
+
+19. **Отчет отправлен**
+
+## На оценку 5:
