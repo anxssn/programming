@@ -1,0 +1,4 @@
+/mnt/d/vs code/code/с/semester_2/laba2/build_cmake/CMakeFiles/student.dir
+/mnt/d/vs code/code/с/semester_2/laba2/build_cmake/CMakeFiles/program.dir
+/mnt/d/vs code/code/с/semester_2/laba2/build_cmake/CMakeFiles/edit_cache.dir
+/mnt/d/vs code/code/с/semester_2/laba2/build_cmake/CMakeFiles/rebuild_cache.dir

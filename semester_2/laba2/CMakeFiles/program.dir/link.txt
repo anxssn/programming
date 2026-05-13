@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/program.dir/src/main.c.o -o program  -Wl,-rpath,"/mnt/d/vs code/code/с/semester_2/laba2" libstudent.so 

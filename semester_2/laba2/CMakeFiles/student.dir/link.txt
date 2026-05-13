@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -shared -Wl,-soname,libstudent.so -o libstudent.so CMakeFiles/student.dir/src/student.c.o 
