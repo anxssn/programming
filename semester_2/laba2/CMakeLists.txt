@@ -6,7 +6,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Опция выбора типа библиотеки 
 option(BUILD_SHARED_LIBS "Build shared library" OFF)
-
 # Debug/Release 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
