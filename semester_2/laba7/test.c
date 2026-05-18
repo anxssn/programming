@@ -4,7 +4,7 @@
 #include <stddef.h>    // нужно для size_t
 #include <cmocka.h>
 
-// ========== Код, который нужно протестировать (написал другой студент) ==========
+
 
 int sum(int a, int b) {
     return a + b;
@@ -43,7 +43,7 @@ int max_num(int a, int b) {
     }
 }
 
-// ========== ТЕСТЫ ==========
+//  ТЕСТЫ 
 
 static void test_sum(void **state) {
     (void)state; // чтобы не было предупреждений
@@ -100,7 +100,7 @@ static void test_max_num(void **state) {
     assert_int_equal(max_num(7, 7), 7);
 }
 
-// ========== ЗАПУСК ВСЕХ ТЕСТОВ ==========
+// ЗАПУСК ВСЕХ ТЕСТОВ 
 
 int main() {
     printf("\n");

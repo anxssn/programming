@@ -1,0 +1,4 @@
+/mnt/d/vs code/code/с/semester_2/laba7/build/CMakeFiles/test_calculator.dir
+/mnt/d/vs code/code/с/semester_2/laba7/build/CMakeFiles/test.dir
+/mnt/d/vs code/code/с/semester_2/laba7/build/CMakeFiles/edit_cache.dir
+/mnt/d/vs code/code/с/semester_2/laba7/build/CMakeFiles/rebuild_cache.dir

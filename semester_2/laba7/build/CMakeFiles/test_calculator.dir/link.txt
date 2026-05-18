@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/test_calculator.dir/test.c.o -o test_calculator  -lcmocka 
