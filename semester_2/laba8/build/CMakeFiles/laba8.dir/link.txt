@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/laba8.dir/src/main.cpp.o CMakeFiles/laba8.dir/src/paint_core.cpp.o -o laba8  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1 

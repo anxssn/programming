@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Wextra CMakeFiles/KeyTable.dir/KeyTable.c.o -o KeyTable  libmylib.a 

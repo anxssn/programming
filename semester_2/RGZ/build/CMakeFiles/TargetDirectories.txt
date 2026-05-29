@@ -1,0 +1,9 @@
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/mylib.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/KeyTable.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/DeKeyTable.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/edit_cache.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/list_install_components.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/install.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/install/local.dir
+/mnt/d/vs code/code/с/semester_2/RGZ/build/CMakeFiles/install/strip.dir

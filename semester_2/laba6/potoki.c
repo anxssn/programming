@@ -15,8 +15,7 @@ struct thread_inf {
 
 typedef struct thread_inf info;
 
-//обработчик завершения потока
-//функция вызывается, когда поток отменяют или он завершается
+//функция очистки -вызывается когда поток отменяют или он завершается
 void thread_cleanup(void *arg) {
     info* data = (info*)arg;
     printf("Поток %d: завершение работы\n", data->thread_id);
@@ -58,7 +57,7 @@ void sleep_run() {
     int n;
     pthread_t threads[MAX_SIZE]; // Массив для потоков
     struct timespec start, end; // Для замера времени
-    double elapsed;
+    double elapsed; //время в миллисекундах
 
     printf("Введите количество элементов (не более %d): ", MAX_SIZE);
     scanf("%d", &n);
