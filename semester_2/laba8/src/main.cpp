@@ -9,7 +9,7 @@ std::stack<Canvas> undoStack;
 enum class Tool { BRUSH, RECTANGLE, LINE, ERASER };
 
 int main() {
-    const int UI_HEIGHT = 120; //окно
+    const int UI_HEIGHT = 120;
     sf::RenderWindow window(
         sf::VideoMode(WIDTH * PIXEL_SIZE, HEIGHT * PIXEL_SIZE + UI_HEIGHT),
         "Paint++"
@@ -19,16 +19,14 @@ int main() {
         (desktop.width - window.getSize().x) / 2,
         (desktop.height - window.getSize().y) / 2
     ));
-    
-    //создание холста
+
     Canvas canvas(HEIGHT, std::vector<sf::Color>(WIDTH, sf::Color::White));
     clearCanvas(canvas);
 
     Tool currentTool = Tool::RECTANGLE;
     sf::Color currentColor = sf::Color::Black;
     int brushRadius = 3;
-    
-    //палитра цветов
+
     std::vector<sf::Color> palette = {
         sf::Color::Black, sf::Color::White, sf::Color::Red,
         sf::Color::Green, sf::Color::Blue, sf::Color::Yellow,
@@ -72,17 +70,32 @@ int main() {
 
                     // Undo (Ctrl+Z)
                     case sf::Keyboard::Z:
-                        if (event.key.control) undo(canvas);
+                        if (event.key.control) undo(canvas); // если зажат CTRL, отменяем последнее действие
                         break;
+
+                     // Фильтры (оценка 5)
+                    case sf::Keyboard::G:
+                        // TODO:
+                        applyGrayscale(canvas);
+                        break;
+                    case sf::Keyboard::N:
+                        // TODO:
+                        applyNegative(canvas);
+                        break;
+                    case sf::Keyboard::M:
+                        // TODO:
+                        applyBlur(canvas);
+                        break;
+
 
                     // Изменение размера кисти (оценка 4)
                     case sf::Keyboard::Add:
-                    case sf::Keyboard::Equal:
-                        if (brushRadius < 20) brushRadius++;
+                    case sf::Keyboard::Equal: // клавиши + и -
+                        if (brushRadius < 20) brushRadius++; // увеличиваем, но не больше 20 раз
                         break;
                     case sf::Keyboard::Hyphen:
                     case sf::Keyboard::Subtract:
-                        if (brushRadius > 1) brushRadius--;
+                        if (brushRadius > 1) brushRadius--; // уменьшаем, но не меньше 1
                         break;
 
                     // Выбор цвета из палитры по цифрам (оценка 4)
@@ -96,10 +109,10 @@ int main() {
                     case sf::Keyboard::Num7:
                     case sf::Keyboard::Num8:
                     case sf::Keyboard::Num9: {
-                        int idx = event.key.code - sf::Keyboard::Num0;
+                        int idx = event.key.code - sf::Keyboard::Num0; // получаем число 0-9
                         if (idx >= 0 && idx < static_cast<int>(palette.size())){
-                            selectedPaletteIndex = idx;
-                            currentColor = palette[idx];
+                            selectedPaletteIndex = idx; // запоминаем индекс
+                            currentColor = palette[idx]; // устанавливаем цвет 
                         }
                         break;
                     }
@@ -114,15 +127,15 @@ int main() {
                 
                 // Перехватываем клик по палитре цветов (оценка 4)
                 if (mouse.y >= paletteY && mouse.y <= paletteY + 30) {
-                    int relativeX = mouse.x - 10;
+                    int relativeX = mouse.x - 10; // сколько пикселей от левого края палитры
                     if (relativeX >= 0){
-                        int idx = relativeX / 35;
+                        int idx = relativeX / 35; // делим на ширину прямоугольника (35px)
                         if (idx >= 0 && idx < static_cast<int>(palette.size())){
                             selectedPaletteIndex = idx;
                             currentColor = palette[idx];
                         }
                     }
-                    continue; 
+                    continue; // пропускаем рисование, тк это был клик по палитре
                 }
 
                 // Клик по рабочей зоне холста
@@ -155,34 +168,15 @@ int main() {
             }
 
             if (event.type == sf::Event::MouseMoved && isDrawing) {
-            sf::Vector2i mouse = sf::Mouse::getPosition(window);
-            int x = mouse.x / PIXEL_SIZE;
-            int y = mouse.y / PIXEL_SIZE;
-    
-            // Рисуем только в пределах холста для кисти и ластика
-            if (y < HEIGHT && (currentTool == Tool::BRUSH || currentTool == Tool::ERASER) && (x != lastX || y != lastY)) {
-                sf::Color drawColor = (currentTool == Tool::ERASER) ? sf::Color::White : currentColor;
-        
-                // Рисуем линию между предыдущей и текущей точкой (интерполяция)
-                int dx = abs(x - lastX);
-                int dy = abs(y - lastY);
-                int sx = (lastX < x) ? 1 : -1;
-                int sy = (lastY < y) ? 1 : -1;
-                int err = dx - dy;
-        
-                int cx = lastX;
-                int cy = lastY;
-        
-                while (true) {
-                    drawBrush(canvas, cx, cy, drawColor, brushRadius);
-                    if (cx == x && cy == y) break;
-                    int e2 = 2 * err;
-                    if (e2 > -dy) { err -= dy; cx += sx; }
-                    if (e2 < dx) { err += dx; cy += sy; }
-                }
-        
-                lastX = x;
-                lastY = y;
+                sf::Vector2i mouse = sf::Mouse::getPosition(window);
+                int x = mouse.x / PIXEL_SIZE;
+                int y = mouse.y / PIXEL_SIZE;
+                
+                // Рисуем только в пределах холста
+                if (y < HEIGHT && (currentTool == Tool::BRUSH || currentTool == Tool::ERASER) && (x != lastX || y != lastY)) {
+                    sf::Color drawColor = (currentTool == Tool::ERASER) ? sf::Color::White : currentColor;
+                    drawBrush(canvas, x, y, drawColor, brushRadius);
+                    lastX = x; lastY = y;
                 }
             }
         }
